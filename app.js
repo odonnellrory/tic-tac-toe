@@ -12,12 +12,14 @@ let currentPlayer = X_TEXT
 let spaces = Array(9).fill(null)
 
 const startGame = () => {
+    gameActive = true;
     boxes.forEach((box) => {
         box.addEventListener('click', boxClicked)
     })
 }
 
 function boxClicked(click) {
+    if (!gameActive) return
     const id = click.target.id
 
     if (!spaces[id]) {
@@ -25,7 +27,8 @@ function boxClicked(click) {
         click.target.innerText = currentPlayer
 
         if (playerHasWon() !== false) {
-            playerText = `${currentPlayer} has won!`
+            gameActive = false
+            playerText.innerText = `${currentPlayer} has won!`
             let winningBlocks = playerHasWon()
             winningBlocks.map((box) => boxes[box].style.backgroundColor = winnerIndicator)
             return
@@ -65,8 +68,9 @@ function restartGame() {
         box.innerText = ''
         box.style.backgroundColor = ''
     })
-    playerText = "Tic Tac Toe"
+    playerText.innerText = "Tic Tac Toe"
     currentPlayer = X_TEXT
+    gameActive = true;
 }
 
 startGame()
