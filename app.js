@@ -7,6 +7,9 @@ let winnerIndicator = getComputedStyle(document.body).getPropertyValue('--winnin
 const O_TEXT = "O"
 const X_TEXT = "X"
 
+let xScore = 0
+let oScore = 0
+
 let currentPlayer = X_TEXT
 
 let spaces = Array(9).fill(null)
@@ -31,11 +34,37 @@ function boxClicked(click) {
             playerText.innerText = `${currentPlayer} has won!`
             let winningBlocks = playerHasWon()
             winningBlocks.map((box) => boxes[box].style.backgroundColor = winnerIndicator)
+            updateScore(currentPlayer)
             return
+        }
+
+        if (isDraw()) {
+            gameActive = false;
+            playerText.innerText = "It's a draw!";
+            return;
         }
 
         currentPlayer = currentPlayer == X_TEXT ? O_TEXT : X_TEXT;
     }
+}
+
+
+function isDraw() {
+    return spaces.every(space => space !== null);
+}
+
+function updateScore(winner) {
+    if (winner === X_TEXT) {
+        xScore++;
+    } else if (winner === O_TEXT) {
+        oScore++;
+    }
+    updateScoreDisplay();
+}
+
+function updateScoreDisplay() {
+    document.getElementById('xScore').innerText = xScore;
+    document.getElementById('oScore').innerText = oScore;
 }
 
 const winningCombos = [
@@ -60,6 +89,7 @@ function playerHasWon() {
     return false
 }
 
+
 restartButton.addEventListener('click', restartGame)
 
 function restartGame() {
@@ -71,6 +101,8 @@ function restartGame() {
     playerText.innerText = "Tic Tac Toe"
     currentPlayer = X_TEXT
     gameActive = true;
+    updateScoreDisplay()
 }
 
 startGame()
+updateScoreDisplay()
