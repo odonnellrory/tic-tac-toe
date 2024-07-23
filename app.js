@@ -33,7 +33,7 @@ function boxClicked(click) {
             gameActive = false
             playerText.innerText = `${currentPlayer} has won!`
             let winningBlocks = playerHasWon()
-            winningBlocks.map((box) => boxes[box].style.backgroundColor = winnerIndicator)
+            winningBlocks.map((box) => boxes[box].classList.add('winner'))
             updateScore(currentPlayer)
             return
         }
@@ -96,7 +96,7 @@ function restartGame() {
     spaces.fill(null)
     boxes.forEach((box) => {
         box.innerText = ''
-        box.style.backgroundColor = ''
+        box.classList.remove('winner')
     })
     playerText.innerText = "Tic Tac Toe"
     currentPlayer = X_TEXT

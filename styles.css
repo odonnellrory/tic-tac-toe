@@ -4,6 +4,7 @@
     --neon: #16213e;
     --box-border: #0f3460;
     --hover: #533483;
+    --winning-blocks: #e94560;
 }
 
 * {
@@ -13,7 +14,7 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Orbitron', sans-serif;
     background-color: var(--background);
     color: var(--text);
 }
@@ -50,6 +51,7 @@ button {
     border-radius: 5px;
     background-color: var(--neon);
     color: var(--text);
+    font-family: 'Orbitron', sans-serif;
     font-size: clamp(0.8rem, 2vw, 1rem);
     transition: all 0.3s ease;
     margin: 5px;
@@ -101,6 +103,35 @@ button:hover {
 .box:hover {
     background-color: var(--hover);
     transform: scale(1.05);
+}
+
+.box.winner {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--neon);
+    color: var(--text);
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    transition: all 0.3s ease;
+    margin: 5px;
+    cursor: pointer;
+    background-color: var(--winning-blocks);
+    color: var(--text);
+    animation: winner-animation 1.5s ease infinite;
+}
+
+@keyframes winner-animation {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 @media (max-width: 480px) {
